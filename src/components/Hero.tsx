@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../data/portfolio';
 import { GlassSculpture } from './GlassSculpture';
-import { useProfilePhoto } from '../utils/useProfilePhoto';
-import { ArrowDown, Github, Linkedin, Mail, FileText, ChevronRight, Sparkles, User, MapPin, Camera, Upload } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, FileText, ChevronRight, Sparkles, User, MapPin } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const { photoSrc, photoError, setPhotoError, handleFileUpload } = useProfilePhoto();
 
   useEffect(() => {
     const currentRole = portfolioData.personal.dynamicRoles[roleIndex];
@@ -174,65 +170,13 @@ export const Hero: React.FC = () => {
               <GlassSculpture />
             </div>
 
-            {/* Hidden file picker for exact original photo */}
-            <input
-              type="file"
-              ref={fileInputRef}
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) handleFileUpload(file);
-              }}
-            />
-
-            {/* Profile Photo Card (Shreyash's real photo, 100% visible face, zero blockage) */}
+            {/* Profile Photo Card (Shreyash's real photo from /profile.jpg, 100% visible face, zero blockage) */}
             <div className="relative z-20 w-[260px] sm:w-[300px] aspect-[3/4] rounded-3xl overflow-hidden bg-white/95 border-2 border-white shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] transition-transform duration-500 hover:scale-[1.02] group">
-              {!photoError ? (
-                <div className="relative w-full h-full">
-                  <img
-                    src={photoSrc}
-                    alt="Shreyash Bhat - Computer Science Engineering Student @ SVKM"
-                    referrerPolicy="no-referrer"
-                    onError={() => setPhotoError(true)}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Subtle photo change trigger button on hover */}
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="absolute top-3 right-3 p-2 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-md opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-xs flex items-center gap-1"
-                    title="Change / Load original photo file"
-                  >
-                    <Camera className="w-3.5 h-3.5 text-rose-500" />
-                  </button>
-                </div>
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-rose-50 via-white to-pink-50">
-                  <div className="w-20 h-20 rounded-2xl bg-rose-100 border border-rose-200 flex items-center justify-center mb-3 shadow-2xs">
-                    <User className="w-10 h-10 text-rose-500" />
-                  </div>
-                  <span className="font-bold text-slate-800 text-base font-display">
-                    {portfolioData.personal.name}
-                  </span>
-                  <span className="text-xs text-slate-500 mt-0.5">
-                    {portfolioData.personal.college}
-                  </span>
-
-                  {/* Clean affordance to select the exact uploaded original photo */}
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="mt-4 px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 hover:border-rose-400 text-xs font-semibold text-rose-600 hover:text-rose-700 shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>Load Original Photo</span>
-                  </button>
-                  <span className="text-[10px] text-slate-400 mt-1 font-mono">
-                    Select prof.pic.jpg
-                  </span>
-                </div>
-              )}
+              <img
+                src="/profile.jpg"
+                alt="Shreyash Bhat - Computer Science Engineering Student @ SVKM"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              />
 
               {/* Delicate glass gloss reflection across bottom of photo */}
               <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent flex items-center justify-between text-white text-xs">

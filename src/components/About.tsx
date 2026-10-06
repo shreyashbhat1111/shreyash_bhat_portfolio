@@ -1,12 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { portfolioData } from '../data/portfolio';
-import { useProfilePhoto } from '../utils/useProfilePhoto';
-import { Brain, Layers, HeartPulse, Palette, GraduationCap, MapPin, CheckCircle2, User, Building, Upload } from 'lucide-react';
+import { Brain, Layers, HeartPulse, Palette, GraduationCap, MapPin, CheckCircle2, User, Building } from 'lucide-react';
 
 export const About: React.FC = () => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { photoSrc, photoError, setPhotoError, handleFileUpload } = useProfilePhoto();
-
   const getFocusIcon = (iconName: string) => {
     switch (iconName) {
       case 'Brain':
@@ -42,48 +38,12 @@ export const About: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
           {/* Photo Card / Avatar Showcase */}
           <div className="lg:col-span-4 flex flex-col items-center">
-            <input
-              type="file"
-              ref={fileInputRef}
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) handleFileUpload(file);
-              }}
-            />
-
             <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-3xl overflow-hidden bg-white border-2 border-white shadow-[0_15px_35px_-10px_rgba(15,23,42,0.12)] group">
-              {!photoError ? (
-                <img
-                  src={photoSrc}
-                  alt="Shreyash Bhat - CSE Student @ SVKM"
-                  referrerPolicy="no-referrer"
-                  onError={() => setPhotoError(true)}
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-rose-50 via-white to-pink-50">
-                  <div className="w-20 h-20 rounded-2xl bg-rose-100 border border-rose-200 flex items-center justify-center mb-3 shadow-2xs">
-                    <User className="w-10 h-10 text-rose-500" />
-                  </div>
-                  <span className="text-base font-bold text-slate-800 font-display">
-                    {portfolioData.personal.name}
-                  </span>
-                  <span className="text-xs text-slate-500 mt-0.5">
-                    {portfolioData.personal.college}
-                  </span>
-
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="mt-4 px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 hover:border-rose-400 text-xs font-semibold text-rose-600 hover:text-rose-700 shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>Load Original Photo</span>
-                  </button>
-                </div>
-              )}
+              <img
+                src="/profile.jpg"
+                alt="Shreyash Bhat - CSE Student @ SVKM"
+                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
               {/* Subtle scrim overlay at bottom */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent opacity-70 pointer-events-none" />
               
