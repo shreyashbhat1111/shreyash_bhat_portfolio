@@ -175,6 +175,13 @@ export const Hero: React.FC = () => {
               <img
                 src="/profile.jpg"
                 alt="Shreyash Bhat - Computer Science Engineering Student @ SVKM"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = 'true';
+                    target.src = './profile.jpg';
+                  }
+                }}
                 className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
 

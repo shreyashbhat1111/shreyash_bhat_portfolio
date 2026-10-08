@@ -42,6 +42,13 @@ export const About: React.FC = () => {
               <img
                 src="/profile.jpg"
                 alt="Shreyash Bhat - CSE Student @ SVKM"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = 'true';
+                    target.src = './profile.jpg';
+                  }
+                }}
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
               {/* Subtle scrim overlay at bottom */}
